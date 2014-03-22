@@ -1,0 +1,15 @@
+<br><br><br><div class="hero-unit"><center>
+<% if session[:bet_total] > 500 %>
+  <h1>Woo hoo! You won $<%= sprintf "%.2f", session[:bet_total]-500 %></h1>
+  <% elsif session[:bet_total] < 500 %>
+  <h1>Yikes! You lost $<%= sprintf "%.2f", 500-session[:bet_total] %></h1>
+  <% else %>
+  <h1> You were break even!</h1>
+    <% end %>
+Would you like to play again?
+    <form action='/new' method='get'>
+  <input type ="submit" class="btn" value='Sure, why not?'></button>
+  </form>
+  </center>
+</div>
+

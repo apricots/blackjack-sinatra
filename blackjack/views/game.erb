@@ -1,0 +1,102 @@
+<div id= "game">
+<!--   Display alert and error messages at the top -->
+  <%if @error %>
+    <div class="alert alert-error"><%=@error%></div>
+  <% end %>
+  <%if @success %>
+    <div class="alert alert-success"><%=@success%></div>
+  <% end %>
+
+<!-- Dealer's Section -->
+  <div class="well">
+    <h5>Dealer's Cards:</h5>
+    <!-- If it's still the user's turn, then 1st card is "face down" -->
+    <% if @show_hit_or_stay %>
+      <img src="/images/cards/cover.jpg">
+      <img src=<%=display(session[:dealer_hand][1]) %>>
+    <% else %>
+    <% session[:dealer_hand].each do |card| %>
+      <img src=<%=display(card) %>>
+      <% end %>
+    <% end %>
+    </p>
+  </div>
+
+<!-- Player's Section -->
+  <div class="well">
+  <p>
+  <h5> <%= session[:name]%>'s Cards:</h5>
+  <% session[:player_hand].each do |card| %>
+    <img src=<%=display(card) %> class ="card_image">
+  <% end %>
+  </p>
+  </div>
+
+  <!-- Display Player's Total when it's Player's Turn -->
+  <% if @show_hit_or_stay %>
+    <span class="label label-default"><%= session[:name]%>'s hand has a total of: <%= calculate(session[:player_hand])%>.</span>
+    <br><br>
+  <% end %>
+  <!-- Display Dealer's total when it's Dealer's Turn -->
+  <% if !@show_hit_or_stay && !@gameover && session[:bet_total] > 0 && !@error%>
+    <span class="label label-default">Dealer's total is: <%= calculate(session[:dealer_hand])%>.</span>
+  <% end %>
+  <!-- Comment whether dealer will hit or stay depending on card total -->
+  <% if @dealer_turn && calculate(session[:dealer_hand]) < 17 %>
+    <span class="label label-default">Dealer will hit.</span>
+    <br><br>
+  <% elsif @dealer_turn && calculate(session[:dealer_hand]) >= 17 %>
+    <span class="label label-default">Dealer will stay.</span>
+    <br><br>
+  <% end %>
+
+<!-- Only show the HIT and STAY options if the user hasn't hit blackjack, hasn't busted, or hasn' stayed already -->
+  <% if @show_hit_or_stay %>
+    <form id="hitform" action='/hit' method='post'>
+      <input type ="submit" class="btn btn-success" value='Hit'></button>
+    </form>
+    <form id ="stayform" action='/stay' method='post'>
+      <input type ="submit" class="btn btn-info" value='Stay'></button>
+    </form>
+  <% if @ddavailable && session[:bet_total] >= session[:bet]%>
+    <form id ="dd" action='/doubledown' method='post'>
+      <input type ="submit" class="btn btn-warning" value='Double Down!'></button>
+    </form>
+  <% end %>
+  <% end %>
+
+
+<!-- Show continue button only when the dealer is hitting -->
+  <% if @dealer_turn && !@compare%>
+    <form id="cont" action='/dealer-turn' method='post'>
+      <input type ="submit" class="btn btn-info" value='Continue..'></button>
+    </form>
+  <% end %>
+<!-- 
+Show compare button only when dealer has finished hitting -->
+  <% if @compare %>
+    <form id= "compare" action='/compare' method='post'>
+      <input type ="submit" class="btn btn-primary" value='Compare Hands'></button>
+    </form>
+  <% end %>
+
+<!-- After a winner is declared, show option to play again or end game -->
+  <% if @gameover %>
+    <form id = "playagain" action='/replay' method='post'>
+        <input type="number" min="1" placeholder="Bet" name="bet">
+      <button type="submit" class="btn btn-success">Play Again!</button>
+    </form>
+    <form id = "cashout" action='/cashout' method='get'>
+      <button type="submit" class="btn btn-warning">Cash Out...</button>
+    </form>
+  <% end %>
+
+<!-- If there is no more money left, show option to play again -->
+  <% if @ranout %>
+      <form action='/new' method='get'>
+        <button type="submit" class="btn">Ran out of money? Start a New Game!</button>
+      </form>
+  <% end %>
+
+
+</div>

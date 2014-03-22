@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/application.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/application.js"></script>
+  </head>
+  <body style="padding-top: 50px;">
+    <% if !@new_game %>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+              <li><a>Current Bet: $<%= sprintf "%.2f", session[:bet] %></a></li>
+              <li><a><%= session[:name]%>'s Total: $<%= sprintf "%.2f",session[:bet_total]%></a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+  <div class="container">
+      <%= yield %>
+  </div>
+  </body>
+</html>

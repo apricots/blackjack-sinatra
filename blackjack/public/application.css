@@ -1,0 +1,45 @@
+form#hitform{
+  float:left;
+  margin-right:10px;
+}
+
+form#stayform{
+  float:left;
+}
+
+img.card-image{
+  margin:0px 5px 5px 0px;
+}
+
+body {
+  background-image:url("/images/white_carbonfiber.png");
+  font-family: 'Roboto', sans-serif;
+}
+
+input[type=submit]{
+  font-family: 'Roboto', sans-serif;
+}
+
+button[type=submit]{
+  font-family: 'Roboto', sans-serif;
+}
+
+form#playagain{
+  float:left;
+  margin-right:10px;
+  margin-top: -2px
+}
+
+form#cashout{
+  float:left;
+  margin-top: 2px
+}
+
+form#dd{
+  float:left;
+  margin-left:10px;
+}
+
+div.well{
+  background-image:url("/images/brilliant.png");
+}

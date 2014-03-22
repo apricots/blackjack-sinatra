@@ -1,0 +1,10 @@
+<br><br><br><div class="hero-unit"><center>
+  <h1>Welcome to Blackjack!</h1>
+  <p>Hi, <%=session[:name]%>. You currently have $<b><%=session[:bet_total]%></b>. Please place a bet.</p>
+  <p>
+<form action='/bet' method='post'>
+      <input type="number" min="1" max="500" placeholder="Bet" name="bet">
+    <button type="submit" class="btn">Begin</button>
+    </form>
+  </p></center>
+</div>
