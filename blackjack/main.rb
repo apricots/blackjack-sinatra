@@ -38,6 +38,13 @@ helpers do
     bankruptcy
   end
 
+  def blackjackdoubledown
+    session[:betextra] = 1.5*session[:bet]
+    session[:bet_total] = session[:bet_total] + session[:bet]*2 + session[:betextra]
+    session[:bet] = 0
+    bankruptcy
+  end
+
   def playerbust
     session[:bet] = 0
     bankruptcy
@@ -199,10 +206,10 @@ post '/doubledown' do
     @gameover = true
     ddbust
   elsif player_total == BLACKJACK_NUM
-    @success = "Wow! #{session[:name]} got Blackjack on a Double Down and won #{session[:bet]}!!"
+    @success = "Wow! #{session[:name]} got Blackjack on a Double Down!!"
     @show_hit_or_stay = false
     @gameover = true
-    playerwin
+    blackjackdoubledown
   # if < 21 after double down, continue playing with dealer's turn
   else
     player_total =calculate(session[:player_hand])
@@ -232,7 +239,7 @@ post '/hit' do
 end
 
 post '/stay' do
-  @success = "You decided to stay! It's the Dealer's turn."
+  @success = "#{session[:name]} decided to stay! It's the Dealer's turn."
   @show_hit_or_stay = false
   @dealer_turn = true
   # show compare button if dealer is already at 17
@@ -350,3 +357,8 @@ get '/end' do
   @new_game = true
   erb :cashout
 end
+
+get '/doubledown' do
+  redirect '/game'
+end
+

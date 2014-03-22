@@ -56,16 +56,3 @@ function dealer_continue(){
     return false;
   });
 }
-
-function dd(){
-  $(document).on('click','#dd input', function() {
-    // alert ("HI");
-    $.ajax({
-      type:'POST',
-      url: '/doubledown',
-    }).done(function(msg){
-      $('#game').replaceWith(msg);
-    });
-    return false;
-  });
-}
