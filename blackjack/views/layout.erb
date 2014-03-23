@@ -3,6 +3,8 @@
   <head>
     <title>Blackjack</title>
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/application.css">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -12,7 +14,7 @@
     <% if !@new_game %>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container">
+        <div class="container-fluid">
             <ul class="nav">
               <li><a>Current Bet: $<%= sprintf "%.2f", session[:bet] %></a></li>
               <li><a><%= session[:name]%>'s Total: $<%= sprintf "%.2f",session[:bet_total]%></a></li>
